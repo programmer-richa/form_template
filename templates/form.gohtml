@@ -1,0 +1,34 @@
+{{define "formParser"}}}
+{{$form:=.}}}
+<form action="{{$form.Action}}"  method="{{$form.Method}}" name="{{$form.Name}}" id="{{$form.ID}}">
+    <div class="row learts-mb-n50">
+        {{range $field := $form.Fields}}
+            <div class="col-12 learts-mb-20">
+            {{if or (or (eq $field.Type  "text")  (eq $field.Type  "password"))   (eq $field.Type  "email") }}
+                    <label for="{{$form.PrefixFieldName}}{{$field.ID}}">{{$field.Label}}
+                        {{if $field.IsRequired}} <abbr class="required">*</abbr>{{end}}
+                    </label>
+                    <input type="{{$field.Type}}" value="{{$field.Value}}" id="{{$form.PrefixFieldName}}{{$field.ID}}"
+                           name="{{$form.PrefixFieldName}}{{$field.ID}}"
+                            {{if (gt $field.MinLength -1)}}  min="{{$field.MinLength}}"  {{end}}
+                            {{if (gt $field.MaxLength -1)}} min="{{$field.MaxLength}}" {{end}}
+                            {{if (ne $field.Placeholder "")}} placeholder="{{$field.Placeholder}}" {{end}}
+                    >
+            {{end}}
+            {{if eq $field.Type  "checkbox"}}
+                    <div class="form-check1">
+                        <input type="{{$field.Type}}" class="form-check-input" name="{{$form.PrefixFieldName}}{{$field.ID}}"
+                               id="{{$form.PrefixFieldName}}{{$field.ID}}">
+                        <label class="form-check-label" for="{{$form.PrefixFieldName}}{{$field.ID}}">{{$field.Label}}</label>
+                    </div>
+            {{end}}
+            {{if or (eq $field.Type  "button") (eq $field.Type  "submit")}}
+                    <button type="{{$field.Type}}" value="{{$field.Value}}" class="btn btn-dark btn-outline-hover-dark"
+                            name="{{$form.PrefixFieldName}}{{$field.ID}}" id="{{$form.PrefixFieldName}}{{$field.ID}}">{{$field.Label}}
+                    </button>
+            {{end}}
+            </div>
+        {{end}}
+    </div>
+</form>
+{{end}}

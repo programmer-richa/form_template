@@ -1,0 +1,17 @@
+{{$page:=.}}
+{{$forms :=$page.Forms}}
+{{$signup := index $forms "signup"}}
+{{$login := index $forms "login"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{$page.Title}}</title>
+</head>
+<body>
+
+<h2>Login</h2>
+{{template "formParser" $signup}}
+<h2>Register</h2>
+{{template "formParser" $login}}
+</body>
+</html>
